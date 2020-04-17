@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/atcrowdfunding"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--javaBean生成位置-->
+        <javaModelGenerator targetPackage="com.yuanxiulin.atcrowdfunding.bean" targetProject="D:\Atcrowdfunding\atcrowdfunding_parent\atcrowdfunding_bean\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--sql映射文件生成的位置-->
+        <sqlMapGenerator targetPackage="mybatis"  targetProject="D:\Atcrowdfunding\atcrowdfunding_parent\atcrowdfunding_manager_impl\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!--指定dao接口生成的位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yuanxiulin.atcrowdfunding.manager.dao"  targetProject="D:\Atcrowdfunding\atcrowdfunding_parent\atcrowdfunding_manager_api\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!--指定哪个表的生成策略-->
+        <table schema="root" tableName="t_account_type_cert" domainObjectName="AccountTypeCert" > </table>
+        <table schema="root" tableName="t_advertisement" domainObjectName="Advertisement" > </table>
+        <table schema="root" tableName="t_cert" domainObjectName="Cert" > </table>
+        <table schema="root" tableName="t_dictionary" domainObjectName="Dictionary" > </table>
+        <table schema="root" tableName="t_member" domainObjectName="Member" > </table>
+        <table schema="root" tableName="t_member_address" domainObjectName="MemberAddress" > </table>
+        <table schema="root" tableName="t_member_cert" domainObjectName="MemberCert" > </table>
+        <table schema="root" tableName="t_member_project_follow" domainObjectName="MemberProjectFollow" > </table>
+        <table schema="root" tableName="t_message" domainObjectName="Message" > </table>
+        <table schema="root" tableName="t_oder" domainObjectName="Order" > </table>
+        <table schema="root" tableName="t_param" domainObjectName="Param" > </table>
+        <table schema="root" tableName="t_permission" domainObjectName="Permission" > </table>
+        <table schema="root" tableName="t_project" domainObjectName="Project" > </table>
+        <table schema="root" tableName="t_project_tag" domainObjectName="ProjectTag" > </table>
+        <table schema="root" tableName="t_project_type" domainObjectName="ProjectType" > </table>
+        <table schema="root" tableName="t_return" domainObjectName="Return" > </table>
+        <table schema="root" tableName="t_role" domainObjectName="Role" > </table>
+        <table schema="root" tableName="t_role_permission" domainObjectName="RolePermission" > </table>
+        <table schema="root" tableName="t_tag" domainObjectName="Tage" > </table>
+        <table schema="root" tableName="t_type" domainObjectName="Type" > </table>
+        <table schema="root" tableName="t_user" domainObjectName="User" > </table>
+        <table schema="root" tableName="t_user_role" domainObjectName="UserRole" > </table>
+
+    </context>
+</generatorConfiguration>
