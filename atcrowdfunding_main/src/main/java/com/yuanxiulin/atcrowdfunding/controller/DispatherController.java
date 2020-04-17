@@ -4,10 +4,10 @@ import com.yuanxiulin.atcrowdfunding.bean.User;
 import com.yuanxiulin.atcrowdfunding.manager.service.UserService;
 import com.yuanxiulin.atcrowdfunding.util.AjaxResult;
 import com.yuanxiulin.atcrowdfunding.util.Const;
+import com.yuanxiulin.atcrowdfunding.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+//@Scope("prototype")
 public class DispatherController {
 
     @Autowired
@@ -34,6 +35,15 @@ public class DispatherController {
         return "main";
     }
 
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+
+        session.invalidate();//销毁session对象
+
+        return "redirect:/index.htm";
+    }
+
+    //异步请求
     @ResponseBody
     @RequestMapping("/doLogin")
     public Object doLogin(String loginacct, String userpswd, String type, HttpSession session){
@@ -42,7 +52,7 @@ public class DispatherController {
         try {
             Map<String,Object> paramMap = new HashMap<>();
             paramMap.put("loginacct",loginacct);
-            paramMap.put("userpswd",userpswd);
+            paramMap.put("userpswd", MD5Util.digest(userpswd));
             paramMap.put("type",type);
 
             User user = userService.queryUserByLogin(paramMap);

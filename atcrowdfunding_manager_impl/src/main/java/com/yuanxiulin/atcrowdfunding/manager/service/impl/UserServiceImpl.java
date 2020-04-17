@@ -3,10 +3,12 @@ package com.yuanxiulin.atcrowdfunding.manager.service.impl;
 import com.yuanxiulin.atcrowdfunding.bean.User;
 import com.yuanxiulin.atcrowdfunding.manager.dao.UserMapper;
 import com.yuanxiulin.atcrowdfunding.manager.service.UserService;
+import com.yuanxiulin.atcrowdfunding.util.Page;
 import com.yuanxiulin.atcrowdfunding.util.exception.LoginFailexception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -22,5 +24,16 @@ public class UserServiceImpl implements UserService {
             throw new LoginFailexception("用户账号或密码不正确！");
         }
         return user;
+    }
+
+    @Override
+    public Page queryPage(Integer pageNo, Integer pageSize) {
+        Page page = new Page(pageNo,pageSize);
+        Integer startIndex = page.getStartIndex();
+        List<User> data = userMapper.queryList(startIndex,pageSize);
+        page.setData(data);
+        Integer totalSize = userMapper.queryCount();
+        page.setTotalSize(totalSize);
+        return page;
     }
 }

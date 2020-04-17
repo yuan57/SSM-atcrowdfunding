@@ -163,6 +163,14 @@
     from t_user
         where loginacct=#{loginacct} and userpswd =#{userpswd}
   </select>
+  <select id="queryList" resultMap="BaseResultMap">
+    select
+        id, loginacct, userpswd, username, email, createtime
+    from t_user limit #{startIndex},#{pageSize}
+  </select>
+  <select id="queryCount" resultType="java.lang.Integer">
+    select count(*) from t_user
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update t_user
     <set>

@@ -59,6 +59,7 @@
 </div>
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
+<script src="${APP_PATH}/jquery/layer/layer.js"></script>
 <script>
     function dologin() {
      /*   $("#loginForm").submit();
@@ -74,13 +75,16 @@
 
      //对于表单数据，不能同null进行判断，如果文本框为空，获取的值为""
      if($.trim(floginacct.val()) == ""){
-         alert("用户账号不能为空，请重新输入");
-         floginacct.val("");
-         //获取焦点
-         floginacct.focus();
+         // alert("用户账号不能为空，请重新输入");
+         layer.msg("用户账号不能为空，请重新输入",{time:1000,icon:5,shift:6},function () {
+             floginacct.val("");
+             //获取焦点
+             floginacct.focus();
+         });
          return false ;
-     }
 
+     }
+     var loadingIndex = -1 ;
      $.ajax({
          url:"${APP_PATH}/doLogin.do",
          type:"POST",
@@ -89,11 +93,18 @@
              "userpswd":fuserpswd.val(),
              "type":ftype.val()
          },
+         beforsend:function(){
+             loadingIndex = layer.msg("处理中", {icon: 16});
+             return true;
+         },
          success:function (result) {
+             layer.close(loadingIndex);
              if(result.success){
-                 alert("success");
+                 //跳转主页面
+                 window.location.href ="${APP_PATH}/main.htm"
              }else{
-                 alert("fail");
+                 // alert("fail");
+                 layer.msg(result.message, {icon: 5});
              }
          }
      });

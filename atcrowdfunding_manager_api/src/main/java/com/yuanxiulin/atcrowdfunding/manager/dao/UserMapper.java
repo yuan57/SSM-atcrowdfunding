@@ -2,10 +2,10 @@ package com.yuanxiulin.atcrowdfunding.manager.dao;
 
 import com.yuanxiulin.atcrowdfunding.bean.User;
 import com.yuanxiulin.atcrowdfunding.bean.UserExample;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     long countByExample(UserExample example);
@@ -31,4 +31,8 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User queryUserByLogin(Map<String, Object> paramMap);
+
+    List<User> queryList(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
+
+    Integer queryCount();
 }
