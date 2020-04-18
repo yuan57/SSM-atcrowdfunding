@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+
     @Override
     public User queryUserByLogin(Map<String, Object> paramMap) {
         User user =  userMapper.queryUserByLogin(paramMap);
