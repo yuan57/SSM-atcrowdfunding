@@ -100,7 +100,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yuanxiulin.atcrowdfunding.bean.User">
+  <insert id="insert" parameterType="com.yuanxiulin.atcrowdfunding.bean.User" useGeneratedKeys="true" keyProperty="id">
     insert into t_user (id, loginacct, userpswd, 
       username, email, createtime
       )
@@ -177,6 +177,7 @@
         loginacct like concat("%",#{queryText},"%")
       </if>
     </where>
+    order by createtime desc
         limit #{startIndex},#{pageSize}
   </select>
   <select id="queryCount" resultType="java.lang.Integer">
@@ -214,40 +215,40 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
-    update t_user
-    set id = #{record.id,jdbcType=INTEGER},
-      loginacct = #{record.loginacct,jdbcType=VARCHAR},
-      userpswd = #{record.userpswd,jdbcType=CHAR},
-      username = #{record.username,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      createtime = #{record.createtime,jdbcType=CHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yuanxiulin.atcrowdfunding.bean.User">
-    update t_user
-    <set>
-      <if test="loginacct != null">
-        loginacct = #{loginacct,jdbcType=VARCHAR},
-      </if>
-      <if test="userpswd != null">
-        userpswd = #{userpswd,jdbcType=CHAR},
-      </if>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=CHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yuanxiulin.atcrowdfunding.bean.User">
+<update id="updateByExample" parameterType="map">
+update t_user
+set id = #{record.id,jdbcType=INTEGER},
+loginacct = #{record.loginacct,jdbcType=VARCHAR},
+userpswd = #{record.userpswd,jdbcType=CHAR},
+username = #{record.username,jdbcType=VARCHAR},
+email = #{record.email,jdbcType=VARCHAR},
+createtime = #{record.createtime,jdbcType=CHAR}
+<if test="_parameter != null">
+  <include refid="Update_By_Example_Where_Clause" />
+</if>
+</update>
+<update id="updateByPrimaryKeySelective" parameterType="com.yuanxiulin.atcrowdfunding.bean.User">
+update t_user
+<set>
+  <if test="loginacct != null">
+    loginacct = #{loginacct,jdbcType=VARCHAR},
+  </if>
+  <if test="userpswd != null">
+    userpswd = #{userpswd,jdbcType=CHAR},
+  </if>
+  <if test="username != null">
+    username = #{username,jdbcType=VARCHAR},
+  </if>
+  <if test="email != null">
+    email = #{email,jdbcType=VARCHAR},
+  </if>
+  <if test="createtime != null">
+    createtime = #{createtime,jdbcType=CHAR},
+  </if>
+</set>
+where id = #{id,jdbcType=INTEGER}
+</update>
+<update id="updateByPrimaryKey" parameterType="com.yuanxiulin.atcrowdfunding.bean.User">
     update t_user
     set loginacct = #{loginacct,jdbcType=VARCHAR},
       userpswd = #{userpswd,jdbcType=CHAR},
@@ -256,4 +257,4 @@
       createtime = #{createtime,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-</mapper>
+        </mapper>

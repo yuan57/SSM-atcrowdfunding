@@ -41,7 +41,7 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-success dropdown-toggle"
                                 data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+                            <i class="glyphicon glyphicon-user"></i>${sessionScope.user.username}<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
@@ -153,7 +153,7 @@
                     <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
                             class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-primary" style="float:right;"
+                    <button id="addBtn" type="button" class="btn btn-primary" style="float:right;"
                             onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增
                     </button>
                     <br>
@@ -341,6 +341,9 @@
         queryPageUser(1);
     });
 
+    $("#addBtn").click(function () {
+        window.location.href="${APP_PATH}/user/toAdd.htm";
+    });
 
 </script>
 </body>

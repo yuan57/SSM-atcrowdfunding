@@ -1,5 +1,6 @@
 package com.yuanxiulin.atcrowdfunding.controller;
 
+import com.yuanxiulin.atcrowdfunding.bean.User;
 import com.yuanxiulin.atcrowdfunding.manager.service.UserService;
 import com.yuanxiulin.atcrowdfunding.util.AjaxResult;
 import com.yuanxiulin.atcrowdfunding.util.Page;
@@ -18,6 +19,28 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+
+    @ResponseBody
+    @RequestMapping("/doAdd")
+    public Object doAdd(User user){
+        AjaxResult result = new AjaxResult();
+        try {
+            int count = userService.addUser(user);
+            result.setSuccess(count != 0);
+            result.setMessage("增加成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setMessage("增加失败");
+        }
+        return  result;
+    }
+
+    @RequestMapping("/toAdd")
+    public String toAdd(){
+        return "user/add";
+    }
 
     @ResponseBody
     @RequestMapping("/toIndex")

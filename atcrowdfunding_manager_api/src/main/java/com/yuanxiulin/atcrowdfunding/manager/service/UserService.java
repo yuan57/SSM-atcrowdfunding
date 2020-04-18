@@ -11,4 +11,6 @@ public interface UserService {
 //    Page queryPage(Integer pageNo, Integer pageSize);
 
     Page queryPage(Map<String, Object> paramMap);
+
+    int addUser(User user);
 }
