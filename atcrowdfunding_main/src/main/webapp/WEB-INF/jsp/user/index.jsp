@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -15,10 +15,16 @@
     <style>
         .tree li {
             list-style-type: none;
-            cursor:pointer;
+            cursor: pointer;
         }
-        table tbody tr:nth-child(odd){background:#F4F4F4;}
-        table tbody td:nth-child(even){color:#C00;}
+
+        table tbody tr:nth-child(odd) {
+            background: #F4F4F4;
+        }
+
+        table tbody td:nth-child(even) {
+            color: #C00;
+        }
     </style>
 </head>
 
@@ -33,7 +39,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li style="padding-top:8px;">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
+                        <button type="button" class="btn btn-default btn-success dropdown-toggle"
+                                data-toggle="dropdown">
                             <i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
@@ -62,11 +69,12 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <div class="tree">
                 <ul style="padding-left:0px;" class="list-group">
-                    <li class="list-group-item tree-closed" >
+                    <li class="list-group-item tree-closed">
                         <a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a>
                     </li>
                     <li class="list-group-item">
-                        <span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span>
+                        <span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge"
+                                                                                             style="float:right">3</span></span>
                         <ul style="margin-top:10px;">
                             <li style="height:30px;">
                                 <a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
@@ -80,7 +88,8 @@
                         </ul>
                     </li>
                     <li class="list-group-item tree-closed">
-                        <span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge" style="float:right">3</span></span>
+                        <span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge"
+                                                                                style="float:right">3</span></span>
                         <ul style="margin-top:10px;display:none;">
                             <li style="height:30px;">
                                 <a href="auth_cert.html"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a>
@@ -119,7 +128,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="list-group-item tree-closed" >
+                    <li class="list-group-item tree-closed">
                         <a href="param.html"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a>
                     </li>
                 </ul>
@@ -135,19 +144,24 @@
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
-                                <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+                                <input id="queryText" class="form-control has-success" type="text" placeholder="请输入查询条件">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                        <button type="button" class="btn btn-warning" id="queryBtn"><i class="glyphicon glyphicon-search"></i> 查询
+                        </button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
+                            class=" glyphicon glyphicon-remove"></i> 删除
+                    </button>
+                    <button type="button" class="btn btn-primary" style="float:right;"
+                            onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增
+                    </button>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
                         <table class="table  table-bordered">
                             <thead>
-                            <tr >
+                            <tr>
                                 <th width="30">#</th>
                                 <th width="30"><input type="checkbox"></th>
                                 <th>账号</th>
@@ -157,7 +171,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${page.data}" var="user" varStatus="status">
+                            <%--<c:forEach items="${page.data}" var="user" varStatus="status">
                                 <tr>
                                     <td>${status.count}</td>
                                     <td><input type="checkbox"></td>
@@ -170,19 +184,38 @@
                                         <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
                                     </td>
                                 </tr>
-                            </c:forEach>
+                            </c:forEach>--%>
                             </tbody>
                             <tfoot>
-                            <tr >
+                            <tr>
                                 <td colspan="6" align="center">
+
                                     <ul class="pagination">
-                                        <li class="disabled"><a href="#">上一页</a></li>
-                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                        <%--<c:if test="${page.pageNo==1}">
+                                            <li class="disabled"><a href="#">上一页</a></li>
+                                        </c:if>
+                                        <c:if test="${page.pageNo!=1}">
+                                            <li onclick="pageChange(${page.pageNo-1})"><a href="#">上一页</a></li>
+                                        </c:if>--%>
+                                        <%--<li class="disabled"><a href="#">上一页</a></li>--%>
+                                        <%--<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
                                         <li><a href="#">2</a></li>
                                         <li><a href="#">3</a></li>
                                         <li><a href="#">4</a></li>
                                         <li><a href="#">5</a></li>
-                                        <li><a href="#">下一页</a></li>
+                                        <li><a href="#">下一页</a></li>--%>
+                                        <%--  <c:forEach begin="1" end="${page.totalNo}" var="num">
+                                              <li
+                                                      <c:if test="${page.pageNo==num}">class="active"
+                                              </c:if>
+                                                      onclick="pageChange(${num})"><a href="#">${num}</a></li>
+                                          </c:forEach>
+                                          <c:if test="${page.pageNo==page.totalNo}">
+                                              <li class="disabled"><a href="#">下一页</a></li>
+                                          </c:if>
+                                          <c:if test="${page.pageNo!=page.totalNo}">
+                                              <li onclick="pageChange(${page.pageNo+1})"><a href="#">下一页</a></li>
+                                          </c:if>--%>
                                     </ul>
                                 </td>
                             </tr>
@@ -199,25 +232,116 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
+<script src="${APP_PATH}/jquery/layer/layer.js"></script>
 <script type="text/javascript">
     $(function () {
-        $(".list-group-item").click(function(){
-            if ( $(this).find("ul") ) {
+        $(".list-group-item").click(function () {
+            if ($(this).find("ul")) {
                 $(this).toggleClass("tree-closed");
-                if ( $(this).hasClass("tree-closed") ) {
+                if ($(this).hasClass("tree-closed")) {
                     $("ul", this).hide("fast");
                 } else {
                     $("ul", this).show("fast");
                 }
             }
         });
+        queryPageUser(1);
     });
-    $("tbody .btn-success").click(function(){
+    $("tbody .btn-success").click(function () {
         window.location.href = "assignRole.html";
     });
-    $("tbody .btn-primary").click(function(){
+    $("tbody .btn-primary").click(function () {
         window.location.href = "edit.html";
     });
+
+    function pageChange(num) {
+        window.location.href = "${APP_PATH}/user/index.do?pageNo=" + num;
+    }
+
+    function toPage(num) {
+        queryPageUser(num);
+    }
+
+    var jsonObj = {
+        pageNo: 1,
+        pageSize: 10
+    };
+
+    function queryPageUser(pageNo) {
+        jsonObj.pageNo = pageNo;
+        var loadingIndex;
+        $.ajax({
+            url: "${APP_PATH}/user/toIndex.do",
+            type: "POST",
+            data: jsonObj,
+            beforeSend: function () {
+                loadingIndex = layer.msg('处理中', {icon: 16});
+                return true;
+            },
+            success: function (result) {
+                page = result.page;
+                data = page.data;
+                layer.close(loadingIndex);
+                if (result.success) {
+                    var content = "";
+                    <%--content += '<c:forEach items='++'" var="user" varStatus="status">';--%>
+                    $.each(data, function (i, n) {
+                        content += '<tr>';
+                        content += '<td>' + (i + 1) + '</td>';
+                        content += '<td><input type="checkbox"></td>';
+                        content += '<td>' + n.loginacct + '</td>';
+                        content += '<td>' + n.username + '</td>';
+                        content += '<td>' + n.email + '</td>';
+                        content += '<td>';
+                        content += '<button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
+                        content += '<button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
+                        content += '<button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+                        content += '</td>';
+                        content += '</tr>';
+                    });
+                    $("tbody").html(content);
+
+                    var contentBar = "";
+
+                    if (page.pageNo == 1) {
+                        contentBar += '<li class="disabled"><a href="#">上一页</a></li>';
+                    } else {
+                        contentBar += '<li onclick="toPage(' + (pageNo - 1) + ')"><a href="#">上一页</a></li>';
+                    }
+                    for (var i = 1; i < page.totalNo; i++) {
+                        contentBar += '<li ';
+                        if (page.pageNo == i) {
+                            contentBar += 'class="active"';
+                        }
+                        contentBar += ' onclick="toPage(' + i + ')"><a href="#">' + i + '</a></li>';
+                    }
+                    if (page.pageNo == page.totalNo) {
+                        contentBar += '<li class="disabled"><a href="#">下一页</a></li>';
+                    } else {
+                        contentBar += '<li onclick="toPage(' + (page.pageNo + 1) + ')"><a href="#">下一页</a></li>';
+                    }
+
+                    $(".pagination").html(contentBar);
+
+                } else {
+                    layer.msg(result.message, {time: 1000, icon: 5, shift: 6});
+                }
+                if(data==null||data==""){
+                    layer.msg("没有找到数据！", {time: 1000, icon: 5, shift: 6});
+                }
+            },
+            error:function () {
+                layer.msg("错误！", {time: 1000, icon: 5, shift: 6});
+            }
+        });
+    }
+
+    $("#queryBtn").click(function () {
+        jsonObj.queryText=$("#queryText").val();
+        queryPageUser(1);
+    });
+
+
 </script>
 </body>
 </html>

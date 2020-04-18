@@ -27,6 +27,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page queryPage(Map<String, Object> paramMap) {
+
+        Integer pageNo = (Integer) paramMap.get("pageNo");
+        Integer pageSize = (Integer) paramMap.get("pageSize");
+        Page page = new Page(pageNo,pageSize);
+        Integer startIndex = page.getStartIndex();
+        paramMap.put("startIndex",startIndex);
+        List<User> data = userMapper.queryList(paramMap);
+        page.setData(data);
+        Integer totalSize = userMapper.queryCount(paramMap);
+        page.setTotalSize(totalSize);
+        return page;
+    }
+
+    /*@Override
     public Page queryPage(Integer pageNo, Integer pageSize) {
         Page page = new Page(pageNo,pageSize);
         Integer startIndex = page.getStartIndex();
@@ -35,5 +50,5 @@ public class UserServiceImpl implements UserService {
         Integer totalSize = userMapper.queryCount();
         page.setTotalSize(totalSize);
         return page;
-    }
+    }*/
 }

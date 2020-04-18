@@ -40,7 +40,7 @@ public class Page {
 
     public void setTotalSize(Integer totalSize) {
         this.totalSize = totalSize;
-        this.totalNo = (this.totalSize/this.pageSize)==0?(this.totalSize/this.pageSize):(this.totalSize/this.pageSize+1);
+        this.totalNo = (this.totalSize%this.pageSize)==0?(this.totalSize/this.pageSize):(this.totalSize/this.pageSize+1);
     }
 
     public Integer getTotalNo() {

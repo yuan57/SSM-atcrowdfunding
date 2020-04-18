@@ -58,6 +58,13 @@
 	
 	<aop:config>
 		<aop:advisor advice-ref="transactionAdvice" pointcut="execution(* com.yuanxiulin.atcrowdfunding..*Service.*(..))"/>
-	</aop:config>		
+	</aop:config>
+
+
+	<!--可以执行批量的sqlSession-->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		<constructor-arg  name="executorType" value="BATCH"></constructor-arg>
+	</bean>
 
 </beans>

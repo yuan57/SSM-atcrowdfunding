@@ -8,5 +8,7 @@ import java.util.Map;
 public interface UserService {
     User queryUserByLogin(Map<String, Object> paramMap);
 
-    Page queryPage(Integer pageNo, Integer pageSize);
+//    Page queryPage(Integer pageNo, Integer pageSize);
+
+    Page queryPage(Map<String, Object> paramMap);
 }
