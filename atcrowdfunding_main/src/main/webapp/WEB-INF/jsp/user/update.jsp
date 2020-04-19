@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -32,7 +33,7 @@
                 <li style="padding-top:8px;">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i>${sessionScope.user.username}<span class="caret"></span>
+                            <i class="glyphicon glyphicon-user"></i> ${sessionScope.user.username}<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
@@ -127,26 +128,26 @@
             <ol class="breadcrumb">
                 <li><a href="#">首页</a></li>
                 <li><a href="#">数据列表</a></li>
-                <li class="active">新增</li>
+                <li class="active">修改</li>
             </ol>
             <div class="panel panel-default">
                 <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
                 <div class="panel-body">
-                    <form role="form"  id="addForm">
+                    <form role="form" id="updateForm">
                         <div class="form-group">
                             <label for="floginacct">登陆账号</label>
-                            <input type="text" class="form-control" id="floginacct" placeholder="请输入登陆账号">
+                            <input type="text" class="form-control" id="floginacct" value="${user.loginacct}">
                         </div>
                         <div class="form-group">
                             <label for="fusername">用户名称</label>
-                            <input type="text" class="form-control" id="fusername" placeholder="请输入用户名称">
+                            <input type="text" class="form-control" id="fusername" value="${user.username}">
                         </div>
                         <div class="form-group">
                             <label for="femail">邮箱地址</label>
-                            <input type="email" class="form-control" id="femail" placeholder="请输入邮箱地址">
+                            <input type="email" class="form-control" id="femail" value="${user.email}">
                             <p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
                         </div>
-                        <button type="button" class="btn btn-success" id="addBtn"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                        <button type="button" class="btn btn-success" id="updateBtn"><i class="glyphicon glyphicon-edit"></i> 修改</button>
                         <button type="button" class="btn btn-danger" id="resetBtn"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
                     </form>
                 </div>
@@ -185,7 +186,7 @@
 <script src="${APP_PATH}/script/docs.min.js"></script>
 <script src="${APP_PATH}/jquery/layer/layer.js"></script>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         $(".list-group-item").click(function(){
             if ( $(this).find("ul") ) {
                 $(this).toggleClass("tree-closed");
@@ -197,33 +198,35 @@
             }
         });
     });
-    $("#addBtn").click(function () {
+    $("#resetBtn").click(function () {
+        $("#updateForm")[0].reset();
+    });
+
+    $("#updateBtn").click(function () {
         var loginacct = $("#floginacct");
         var username = $("#fusername");
         var email = $("#femail");
         $.ajax({
-            url:"${APP_PATH}/user/doAdd.do",
+            url:"${APP_PATH}/user/doUpdate.do",
             type:"POST",
             data:{
                 "loginacct":loginacct.val(),
                 "username":username.val(),
-                "email":email.val()
+                "email":email.val(),
+                "id":"${user.id}"
             },
             beforeSend:function () {
                 return true;
             },
             success:function (result) {
                 if(result.success){
+                    layer.msg(result.message, {time:1000, icon:6, shift:6});
                     window.location.href="${APP_PATH}/user/index.htm";
                 }else{
                     layer.msg(result.message, {time:1000, icon:5, shift:6});
                 }
             }
         });
-    });
-
-    $("#resetBtn").click(function () {
-        $("#addForm")[0].reset();
     });
 </script>
 </body>

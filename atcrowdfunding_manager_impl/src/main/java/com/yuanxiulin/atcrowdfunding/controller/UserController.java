@@ -3,6 +3,7 @@ package com.yuanxiulin.atcrowdfunding.controller;
 import com.yuanxiulin.atcrowdfunding.bean.User;
 import com.yuanxiulin.atcrowdfunding.manager.service.UserService;
 import com.yuanxiulin.atcrowdfunding.util.AjaxResult;
+import com.yuanxiulin.atcrowdfunding.util.Const;
 import com.yuanxiulin.atcrowdfunding.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,65 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+
+    @ResponseBody
+    @RequestMapping("/doDeleteUserBatch")
+    public Object doDeleteUserBatch(Integer[] id){
+        AjaxResult result = new AjaxResult();
+        try {
+            int count = userService.doDeleteUserBatch(id);
+            result.setSuccess(count == id.length);
+            result.setMessage("删除这些用户成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setMessage("删除这些用户失败");
+        }
+        return  result;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/doDelete")
+    public Object doDelete(Integer id){
+        AjaxResult result = new AjaxResult();
+        try {
+            int count = userService.deleteUserById(id);
+            result.setSuccess(count != 0);
+            result.setMessage("删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setMessage("删除失败");
+        }
+        return  result;
+    }
+
+    @ResponseBody
+    @RequestMapping("/doUpdate")
+    public Object doUpdate(User user){
+        AjaxResult result = new AjaxResult();
+        try {
+            int count = userService.updateUser(user);
+            result.setSuccess(count != 0);
+            result.setMessage("修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setMessage("修改失败");
+        }
+        return  result;
+    }
+
+
+
+    @RequestMapping("/toUpdate")
+    public String toUpdate(Integer id,Map map ){
+        User user = userService.queryUserById(id);
+        map.put(Const.LOGIN_USER,user);
+        return "user/update";
+    }
 
 
     @ResponseBody

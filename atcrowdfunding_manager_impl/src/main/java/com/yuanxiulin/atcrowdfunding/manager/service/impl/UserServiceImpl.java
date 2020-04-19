@@ -55,6 +55,32 @@ public class UserServiceImpl implements UserService {
         return count;
     }
 
+    @Override
+    public User queryUserById(Integer id) {
+        User user = userMapper.selectByPrimaryKey(id);
+        return user;
+    }
+
+    @Override
+    public int updateUser(User user) {
+        return userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public int deleteUserById(Integer id) {
+        return userMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int doDeleteUserBatch(Integer[] ids) {
+        int count = 0;
+        for(Integer id:ids){
+            int i = userMapper.deleteByPrimaryKey(id);
+            count++;
+        }
+        return count;
+    }
+
     /*@Override
     public Page queryPage(Integer pageNo, Integer pageSize) {
         Page page = new Page(pageNo,pageSize);
